@@ -1,62 +1,82 @@
-/* 
- * hexo theme meow
- * main scripts
- */
+/* global KEEP */
 
-// import initSwup from "./theme/tools/swup.js";
-import initMenu from "./theme/menu.js";
-import initToolbar from "./theme/toolbar.js";
-import initScroll from "./theme/tools/scroll.js";
-import initDatetime from "./theme/tools/datetime.js";
-import initLazyLoad from "./theme/tools/lazyload.js";
-import initImageView from "./theme/tools/imageview.js";
-import initFriendLink from "./theme/friendLink.js";
-import initCopy from "./theme/tools/copy.js";
-import initCodeBlock from "./theme/code.js";
-import initTags from "./theme/tags.js";
-import initKeyboard from "./theme/tools/keyboard.js";
-import initPageFocus from "./theme/focus.js";
-import initMouse from "./theme/tools/mouse.js";
-import initSearch from "./theme/search.js";
+window.addEventListener('DOMContentLoaded', () => {
+  const { version, local_search, lazyload } = KEEP.theme_config
 
-const initMain = () => {
-  const main = () => {
-    // initSwup();
-    initMenu();
-    if (GLOBALCONFIG.toolbar) initToolbar();
-    initScroll();
-    initDatetime();
-    initLazyLoad();
-    initImageView();
-    if (GLOBALCONFIG.friends) initFriendLink();
-    initCopy();
-    if (GLOBALCONFIG.codeblock) initCodeBlock();
-    initTags();
-    initKeyboard();
-    if (GLOBALCONFIG.onblur_title && GLOBALCONFIG.onblur_title != 'false') initPageFocus();
-    if (GLOBALCONFIG.mouse_click) initMouse();
-    if (GLOBALCONFIG.search.enable) initSearch();
-
-    console.log("%c🐱 Them：Meow | Author：小橘猫chanwj | GitHub：https://github.com/chanwj/hexo-theme-meow", "color:#fff; background:#ffc76c; padding: 8px 15px; border-radius: 8px");
+  KEEP.themeInfo = {
+    theme: `Keep v${version}`,
+    author: 'XPoet',
+    repository: 'https://github.com/XPoet/hexo-theme-keep',
+    localStorageKey: 'KEEP-THEME-STATUS',
+    encryptKey: 'KEEP-ENCRYPT',
+    styleStatus: {
+      isDark: false,
+      fontSizeLevel: 0,
+      isShowToc: true
+    },
+    defaultDatetimeFormat: 'YYYY-MM-DD HH:mm:ss'
   }
 
-  main();
-};
+  // print theme base info
+  KEEP.printThemeInfo = () => {
+    console.log(
+      `\n %c ${KEEP.themeInfo.theme} %c ${KEEP.themeInfo.repository} \n`,
+      `color: #fadfa3; background: #333; padding: 6px 0;`,
+      `padding: 6px 0;`
+    )
+  }
+  KEEP.printThemeInfo()
 
-const refreshFn = () => {
-  const refresh = () => {
-    initLazyLoad();
-    if (GLOBALCONFIG.codeblock) initCodeBlock();
-    initTags();
-  };
+  // set version number of footer
+  KEEP.setFooterVersion = () => {
+    const vd = document.querySelector('.footer .keep-version')
+    vd && (vd.innerHTML = KEEP.themeInfo.theme)
+  }
 
-  refresh();
-};
+  // set styleStatus to localStorage
+  KEEP.setStyleStatus = () => {
+    localStorage.setItem(KEEP.themeInfo.localStorageKey, JSON.stringify(KEEP.themeInfo.styleStatus))
+  }
 
-document.addEventListener("DOMContentLoaded", initMain);
+  // get styleStatus from localStorage
+  KEEP.getStyleStatus = () => {
+    let temp = localStorage.getItem(KEEP.themeInfo.localStorageKey)
+    if (temp) {
+      temp = JSON.parse(temp)
+      for (let key in KEEP.themeInfo.styleStatus) {
+        KEEP.themeInfo.styleStatus[key] = temp[key]
+      }
+      return temp
+    } else {
+      return null
+    }
+  }
 
-if (GLOBALCONFIG.encrypt) {
-  window.addEventListener("hexo-blog-decrypt", refreshFn);
-}
+  // init prototype function
+  KEEP.initPrototype = () => {
+    HTMLElement.prototype.wrap = function (wrapper) {
+      this.parentNode.insertBefore(wrapper, this)
+      this.parentNode.removeChild(this)
+      wrapper.appendChild(this)
+    }
+  }
+  KEEP.initPrototype()
 
-export default initMain;
+  KEEP.initExecute = () => {
+    KEEP.initUtils()
+    KEEP.initHeaderShrink()
+    KEEP.initModeToggle()
+    KEEP.initBack2Top()
+    KEEP.initCodeBlock()
+    KEEP.setFooterVersion()
+
+    if (lazyload?.enable === true) {
+      KEEP.initLazyLoad()
+    }
+
+    if (local_search?.enable === true) {
+      KEEP.initLocalSearch()
+    }
+  }
+  KEEP.initExecute()
+})
