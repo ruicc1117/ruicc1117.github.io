@@ -164,7 +164,7 @@
   --redefine-box-shadow-flat-hover: var(--shadow-color-2) 0px 1px 4px 0px, var(--shadow-color-1) 0px 0px 0px 1px, var(--shadow-color-1) 0px 0px 0px 1px inset;
   --mermaid-theme: $mermaid-theme;
 }
-.light-mode {
+.light {
   --background-color: #fff;
   --background-color-transparent: rgba(255,255,255,0.6);
   --background-color-transparent-15: rgba(255,255,255,0.15);
@@ -211,7 +211,7 @@
   --redefine-box-shadow-flat-hover: var(--shadow-color-2) 0px 1px 4px 0px, var(--shadow-color-1) 0px 0px 0px 1px, var(--shadow-color-1) 0px 0px 0px 1px inset;
   --mermaid-theme: $mermaid-theme;
 }
-.dark-mode {
+.dark {
   --background-color: #202124;
   --background-color-transparent: rgba(32,33,36,0.4);
   --background-color-transparent-15: rgba(32,33,36,0.15);
@@ -2045,13 +2045,6 @@ pre .deletion {
 .navbar-drawer-show {
   overflow: hidden;
 }
-[data-target] {
-  display: block; /* or flex, depending on your layout */
-  overflow: hidden;
-}
-[data-target] .submenu-item {
-  opacity: 0;
-}
 .icon-rotated {
   transform: rotate(90deg);
 }
@@ -2458,25 +2451,6 @@ html.is-animating .scroll-progress-bar {
 .side-tools-container .hidden-tools-list.show {
   opacity: 1;
   transform: translateX(0);
-}
-.side-tools-container .visible-tools-list .tool-scroll-to-top {
-  display: none;
-}
-.side-tools-container .visible-tools-list .tool-scroll-to-top.show {
-  display: flex;
-}
-.side-tools-container .visible-tools-list .tool-scroll-to-top:hover .percent {
-  display: none;
-}
-.side-tools-container .visible-tools-list .tool-scroll-to-top:hover .arrow-up {
-  display: flex;
-}
-.side-tools-container .visible-tools-list .tool-scroll-to-top .arrow-up {
-  display: none;
-}
-.side-tools-container .visible-tools-list .tool-scroll-to-top .percent {
-  display: flex;
-  font-size: 1rem;
 }
 @media (max-width: 640px) {
   :hover {
