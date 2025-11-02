@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import url('https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-webfont/1.6.0/style.min.css');
 
 @custom-variant dark (&:is(.dark *));
 
@@ -29,8 +28,8 @@
   --radius-xlarge: 24px;
   --radius-xxlarge: 48px;
 
-  --font-english: "LXGW WenKai", Geist Variable, sans-serif;
-  --font-default: "LXGW WenKai", Geist Variable, system-ui, sans-serif;
+  --font-english: Geist Variable, sans-serif;
+  --font-default: Geist Variable, system-ui, sans-serif;
 
   --text-default: 16px;
 

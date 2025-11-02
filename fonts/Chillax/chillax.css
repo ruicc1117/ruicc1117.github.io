@@ -29,6 +29,8 @@
         local('ChillaxVariable'),
         local('Chillax Variable'),
         local('Chillax'),
+        url('Chillax-Variable.woff2') format('woff2'),
+        url('Chillax-Variable.woff') format('woff'),
         url('Chillax-Variable.ttf') format('truetype');
     font-weight: 200 700;
     font-display: swap;
